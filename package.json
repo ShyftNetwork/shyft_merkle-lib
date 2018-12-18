@@ -1,0 +1,21 @@
+{
+  "name": "shyft_merkle-lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethereumjs-util": "^6.0.0",
+    "ethers": "^4.0.20",
+    "web3": "^1.0.0-beta.37"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chalk": "^2.4.1",
+    "figures": "^2.0.0"
+  }
+}
