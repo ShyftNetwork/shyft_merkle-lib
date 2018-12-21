@@ -143,3 +143,10 @@ Stringifies the proof by assmbling a bit array of the path indicators and append
 | --- | --- |
 | proof | <code>Array.&lt;any&gt;</code> | 
 
+
+## Generating Docs
+
+```
+npm i -g jsdoc2md
+jsdoc2md index.js
+```
