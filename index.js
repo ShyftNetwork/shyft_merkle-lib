@@ -123,7 +123,7 @@ const getProof = (tree, leaf) => {
 	// find partner at each height h, starting at height 1 and ending at level below root
 	for(let h = 1; h < tree.length - 1; h++) {
 		// true if this index is on the left
-		let partnerIsRight = i % 2 == 0
+		let partnerIsRight = i % 2 === 0
 		proof.push(partnerIsRight)
 		let partner
 		if(partnerIsRight) {
@@ -137,7 +137,7 @@ const getProof = (tree, leaf) => {
 		// update index; index of currHash next level up should be floor(i/2)
 		i = Math.floor(i/2)
 		// check that calculated hash is in fact the same as parent hash in the tree
-		if(currHash != tree[h+1][i]) return null
+		if(currHash !== tree[h+1][i]) return null
 	}
 	return proof
 }
@@ -170,10 +170,10 @@ const verifyProof = (proof, leaf, root) => {
 const stringifyProof = (proof) => {
 	let pathStr = ""
 	let indicators = 0
-	for(let i = 0; i < proof.length; i += 2) {
+	for(let i = proof.length - 2; i >= 0; i -= 2) {
 		indicators <<= 1
 		indicators = proof[i] ? (indicators | 1) : (indicators | 0)
-		pathStr += proof[i+1].substr(2)
+		pathStr = proof[i+1].substr(2) + pathStr
 	}
 
 	let indicatorStr = indicators.toString(16)
