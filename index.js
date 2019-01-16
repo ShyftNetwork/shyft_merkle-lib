@@ -168,19 +168,20 @@ const verifyProof = (proof, leaf, root) => {
  * @returns {string}
  */
 const stringifyProof = (proof) => {
-	let pathStr = ""
-	let indicators = 0
-	for(let i = proof.length - 2; i >= 0; i -= 2) {
-		indicators <<= 1
-		indicators = proof[i] ? (indicators | 1) : (indicators | 0)
-		pathStr = proof[i+1].substr(2) + pathStr
-	}
+  let pathStr = "" 
+  let indicators = 0
 
-	let indicatorStr = indicators.toString(16)
-	while (indicatorStr.length !== 64) {
-		indicatorStr = '0' + indicatorStr
-	}
-	return '0x' + indicatorStr + pathStr
+  for(let i = proof.length - 2; i >= 0; i -= 2) {
+   indicators <<= 1
+   indicators = proof[i] ? (indicators | 1) : (indicators | 0) 
+   pathStr = `${proof[i+1].substr(2)}${pathStr}`
+ }
+
+  let indicatorStr = indicators.toString(16)
+  while (indicatorStr.length !== 64) {
+   indicatorStr = '0' + indicatorStr
+  }
+  return '0x' + indicatorStr + pathStr
 }
 
 module.exports = { buildTree, hashAB, hashHeader, isPowerOfTwo, treePad, getProof, verifyProof, stringifyProof }
