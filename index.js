@@ -1,16 +1,15 @@
 const ethers = require('ethers')
 const utils = ethers.utils
-const keccak256 = ethers.utils.solidityKeccak256
-const hash = require('web3').utils.soliditySha3
+const hash = ethers.utils.solidityKeccak256
 
 /**
  * Hashes two values together.
- * @param {number} a - a bytes32 appropriate value
- * @param {number} b - a bytes32 appropriate value
+ * @param {string} a - a bytes32 appropriate value
+ * @param {string} b - a bytes32 appropriate value
  * @returns {string}
  */
 const hashAB = (a, b) => {
-	return keccak256(["bytes32", "bytes32"], [a, b]).toString(16)
+	return hash(["bytes32", "bytes32"], [a, b]).toString(16)
 }
 
 /**
@@ -18,12 +17,12 @@ const hashAB = (a, b) => {
  * @param {string} obj.previousHeader - previous block header
  * @param {number} obj.timestamp - block timestamp
  * @param {number} obj.blockNumber - current block number
- * @param {string} obj.transactionRoot - current transaction root
+ * @param {string} obj.transactionsRoot - current transaction root
  * @returns {string}
  */
 const hashHeader = (obj) => {
 	if(obj === null) return hash(0)
-	return keccak256(["bytes32", "uint256", "uint256", "bytes32"],
+	return hash(["bytes32", "uint256", "uint256", "bytes32"],
 		[obj.prevHeader, utils.bigNumberify(obj.timestamp), utils.bigNumberify(obj.number), obj.transactionsRoot]).toString(16)
 }
 
@@ -184,4 +183,35 @@ const stringifyProof = (proof) => {
 	return '0x' + indicatorStr + pathStr
 }
 
-module.exports = { buildTree, hashAB, hashHeader, isPowerOfTwo, treePad, getProof, verifyProof, stringifyProof }
+/**
+ * Returns root element of tree.
+ * @param tree
+ * @returns {string}
+ */
+const getRoot = (tree) => {
+	return tree[tree.length -1][0]
+}
+
+/**
+ * Checks if the leaf exists in the tree.
+ * @param {string} leaf.prevHeader - previous block header
+ * @param {number} leaf.timestamp - block timestamp
+ * @param {number} leaf.number - current block number
+ * @param {string} leaf.transactionsRoot - current transaction root
+ * @param tree Valid merkle tree
+ * @returns {boolean}
+ */
+const isValidLeaf = (tree, leaf) => {
+	for(let i = 0; i < tree[0].length; i++) {
+		let treeLeaf = tree[0][i]
+		if(treeLeaf.prevHeader === leaf.prevHeader &&
+			treeLeaf.number === leaf.number &&
+			treeLeaf.timestamp === leaf.timestamp &&
+			treeLeaf.transactionsRoot === leaf.transactionsRoot) {
+				return true
+		}
+	}
+	return false
+}
+
+module.exports = { buildTree, hash, hashAB, hashHeader, isPowerOfTwo, treePad, getProof, verifyProof, stringifyProof, getRoot, isValidLeaf }

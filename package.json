@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test tests/tests.js"
+    "test": "mocha test tests/tests.js",
+    "docs": "jsdoc2md --template README.hbs --files index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,8 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chalk": "^2.4.1",
-    "figures": "^2.0.0"
+    "figures": "^2.0.0",
+    "jsdoc-to-markdown": "^4.0.1",
+    "mocha": "^6.0.2"
   }
 }
