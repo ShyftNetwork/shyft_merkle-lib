@@ -75,6 +75,7 @@ Hashes a block header: {previousHeader, timestamp, blockNumber, transactionRoot}
 | obj.timestamp | <code>number</code> | block timestamp |
 | obj.blockNumber | <code>number</code> | current block number |
 | obj.transactionsRoot | <code>string</code> | current transaction root |
+| obj.receiptsRoot | <code>string</code> | current receipts root |
 
 <a name="isPowerOfTwo"></a>
 
@@ -143,7 +144,7 @@ Verifies that the leaf and the proof do in fact hash to the root
 | Param | Type |
 | --- | --- |
 | proof | <code>Array.&lt;any&gt;</code> | 
-| leaf | <code>string</code> | 
+| leaf | <code>Object</code> | 
 | root | <code>string</code> | 
 
 <a name="stringifyProof"></a>
@@ -181,6 +182,7 @@ Checks if the leaf exists in the tree.
 | leaf.timestamp | <code>number</code> | block timestamp |
 | leaf.number | <code>number</code> | current block number |
 | leaf.transactionsRoot | <code>string</code> | current transaction root |
+| leaf.receiptsRoot | <code>string</code> | current receipts root |
 | tree |  | Valid merkle tree |
 
 

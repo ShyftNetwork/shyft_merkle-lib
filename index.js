@@ -18,12 +18,14 @@ const hashAB = (a, b) => {
  * @param {number} obj.timestamp - block timestamp
  * @param {number} obj.blockNumber - current block number
  * @param {string} obj.transactionsRoot - current transaction root
+ * @param {string} obj.receiptsRoot - current receipts root
  * @returns {string}
  */
 const hashHeader = (obj) => {
 	if(obj === null) return hash(0)
-	return hash(["bytes32", "uint256", "uint256", "bytes32"],
-		[obj.prevHeader, utils.bigNumberify(obj.timestamp), utils.bigNumberify(obj.number), obj.transactionsRoot]).toString(16)
+	return hash(["bytes32", "uint256", "uint256", "bytes32", "bytes32"],
+		[obj.prevHeader, utils.bigNumberify(obj.timestamp), utils.bigNumberify(obj.number),
+			obj.transactionsRoot, obj.receiptsRoot]).toString(16)
 }
 
 /**
@@ -144,7 +146,7 @@ const getProof = (tree, leaf) => {
 /**
  * Verifies that the leaf and the proof do in fact hash to the root
  * @param {any[]} proof
- * @param {string} leaf
+ * @param {Object} leaf
  * @param {string} root
  * @returns {boolean}
  */
@@ -198,6 +200,7 @@ const getRoot = (tree) => {
  * @param {number} leaf.timestamp - block timestamp
  * @param {number} leaf.number - current block number
  * @param {string} leaf.transactionsRoot - current transaction root
+ * @param {string} leaf.receiptsRoot - current receipts root
  * @param tree Valid merkle tree
  * @returns {boolean}
  */
@@ -207,7 +210,8 @@ const isValidLeaf = (tree, leaf) => {
 		if(treeLeaf.prevHeader === leaf.prevHeader &&
 			treeLeaf.number === leaf.number &&
 			treeLeaf.timestamp === leaf.timestamp &&
-			treeLeaf.transactionsRoot === leaf.transactionsRoot) {
+			treeLeaf.transactionsRoot === leaf.transactionsRoot &&
+			treeLeaf.receiptsRoot === leaf.receiptsRoot) {
 				return true
 		}
 	}
