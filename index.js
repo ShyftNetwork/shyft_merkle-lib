@@ -1,16 +1,15 @@
 const ethers = require('ethers')
 const utils = ethers.utils
-const keccak256 = ethers.utils.solidityKeccak256
-const hash = require('web3').utils.soliditySha3
+const hash = ethers.utils.solidityKeccak256
 
 /**
  * Hashes two values together.
- * @param {number} a - a bytes32 appropriate value
- * @param {number} b - a bytes32 appropriate value
+ * @param {string} a - a bytes32 appropriate value
+ * @param {string} b - a bytes32 appropriate value
  * @returns {string}
  */
 const hashAB = (a, b) => {
-	return keccak256(["bytes32", "bytes32"], [a, b]).toString(16)
+	return hash(["bytes32", "bytes32"], [a, b]).toString(16)
 }
 
 /**
@@ -23,7 +22,7 @@ const hashAB = (a, b) => {
  */
 const hashHeader = (obj) => {
 	if(obj === null) return hash(0)
-	return keccak256(["bytes32", "uint256", "uint256", "bytes32"],
+	return hash(["bytes32", "uint256", "uint256", "bytes32"],
 		[obj.prevHeader, utils.bigNumberify(obj.timestamp), utils.bigNumberify(obj.number), obj.transactionsRoot]).toString(16)
 }
 

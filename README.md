@@ -2,7 +2,15 @@
 
 Basic libary for Shyft-specific merkle tree operations.
 
-## API:
+## Installing
+```
+npm install @shyftnetwork/shyft_merkle-lib
+```
+
+## Re-generating Docs
+```
+npm install && npm run docs
+```
 
 ## Functions
 
@@ -34,6 +42,12 @@ Basic libary for Shyft-specific merkle tree operations.
 <dt><a href="#stringifyProof">stringifyProof(proof)</a> ⇒ <code>string</code></dt>
 <dd><p>Stringifies the proof by assmbling a bit array of the path indicators and appending it to the path segments.</p>
 </dd>
+<dt><a href="#getRoot">getRoot(tree)</a> ⇒ <code>string</code></dt>
+<dd><p>Returns root element of tree.</p>
+</dd>
+<dt><a href="#isValidLeaf">isValidLeaf(tree)</a> ⇒ <code>boolean</code></dt>
+<dd><p>Checks if the leaf exists in the tree.</p>
+</dd>
 </dl>
 
 <a name="hashAB"></a>
@@ -45,8 +59,8 @@ Hashes two values together.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| a | <code>number</code> | a bytes32 appropriate value |
-| b | <code>number</code> | a bytes32 appropriate value |
+| a | <code>string</code> | a bytes32 appropriate value |
+| b | <code>string</code> | a bytes32 appropriate value |
 
 <a name="hashHeader"></a>
 
@@ -60,7 +74,7 @@ Hashes a block header: {previousHeader, timestamp, blockNumber, transactionRoot}
 | obj.previousHeader | <code>string</code> | previous block header |
 | obj.timestamp | <code>number</code> | block timestamp |
 | obj.blockNumber | <code>number</code> | current block number |
-| obj.transactionRoot | <code>string</code> | current transaction root |
+| obj.transactionsRoot | <code>string</code> | current transaction root |
 
 <a name="isPowerOfTwo"></a>
 
@@ -143,10 +157,31 @@ Stringifies the proof by assmbling a bit array of the path indicators and append
 | --- | --- |
 | proof | <code>Array.&lt;any&gt;</code> | 
 
+<a name="getRoot"></a>
 
-## Generating Docs
+## getRoot(tree) ⇒ <code>string</code>
+Returns root element of tree.
 
-```
-npm i -g jsdoc2md
-jsdoc2md index.js
-```
+**Kind**: global function  
+
+| Param |
+| --- |
+| tree | 
+
+<a name="isValidLeaf"></a>
+
+## isValidLeaf(tree) ⇒ <code>boolean</code>
+Checks if the leaf exists in the tree.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| leaf.prevHeader | <code>string</code> | previous block header |
+| leaf.timestamp | <code>number</code> | block timestamp |
+| leaf.number | <code>number</code> | current block number |
+| leaf.transactionsRoot | <code>string</code> | current transaction root |
+| tree |  | Valid merkle tree |
+
+
+
