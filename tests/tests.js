@@ -6,7 +6,7 @@ const utils = require('ethereumjs-util')
 //const logger = require('../lib/logger')
 const chalk = require('chalk')
 const BN = utils.BN
-const hash = require('web3').utils.soliditySha3
+const hash = merkle.hash
 
 const hashAB = merkle.hashAB
 const hashHeader = merkle.hashHeader
@@ -86,42 +86,89 @@ const checkPadding = (a, b) => {
 	}
 }
 
-describe(DESCRIPTION("Merkle Tree"), () => {
-	it("should confirm 64 is a power of two", () => {
-		logger.Context(`Got :: ${merkle.isPowerOfTwo(64)} Expected :: ${true}`)
-		assert(merkle.isPowerOfTwo(64), `64 is a power of two`)
-	})
-	it("should confirm 127 is not a power of two", () => {
-		logger.Context(`Got :: ${merkle.isPowerOfTwo(127)} Expected :: ${false}`)
-		assert(!merkle.isPowerOfTwo(127), `127 is not a power of two`)
-	})
-	it("should pad a tree to a power of 2", () => {
-		let paddedTree = merkle.treePad([1, 2 ,3])
-		checkPadding(paddedTree, [1,2,3,null])
-	})
-	it("should pad a tree to a power of 2", () => {
-		let paddedTree = merkle.treePad([1, 2 ,3, 4, 5])
-		checkPadding(paddedTree, [1, 2, 3, 4, 5,null, null, null])
-	})
-	it("should create a merkle tree from 2 leafs", () => {
-		let tree = merkle.buildTree([a, b])
-		checkTrees(tree, SMALL_TREE)
+describe(DESCRIPTION("Merkle Tree Tests"), () => {
+	describe("#isPowerOfTwo()", () => {
+		it("should confirm 64 is a power of two", () => {
+			logger.Context(`Got :: ${merkle.isPowerOfTwo(64)} Expected :: ${true}`)
+			assert(merkle.isPowerOfTwo(64), `64 is a power of two`)
+		})
+		it("should confirm 127 is not a power of two", () => {
+			logger.Context(`Got :: ${merkle.isPowerOfTwo(127)} Expected :: ${false}`)
+			assert(!merkle.isPowerOfTwo(127), `127 is not a power of two`)
+		})
 	})
 
-	it("should create a merkle tree from 8 leafs", () => {
-		let tree = merkle.buildTree([a, b, c, d, e, f, g, h])
-		checkTrees(tree, LARGE_TREE)
+	describe("#treePad()", () => {
+		it("should pad a tree to a power of 2", () => {
+			let paddedTree = merkle.treePad([1, 2 ,3])
+			checkPadding(paddedTree, [1,2,3,null])
+		})
+		it("should pad a tree to a power of 2", () => {
+			let paddedTree = merkle.treePad([1, 2 ,3, 4, 5])
+			checkPadding(paddedTree, [1, 2, 3, 4, 5,null, null, null])
+		})
 	})
 
-	it("should create a proof from a given leaf in a tree", () => {
-		let tree = merkle.buildTree([a, b, c, d, e, f, g, h])
-		let leaf = c
-		let proof = merkle.getProof(tree, leaf)
-		logger.Context(`Got :: ${proof[1]} Expected :: toEqual ${hashHeader(d)}`)
-		logger.Context(`Got :: ${proof[3]} Expected :: toEqual ${tree[2][0]}`)
-		logger.Context(`Got :: ${proof[proof.length-1]} Expected :: toEqual ${tree[tree.length-2][1]}`)
-		assert.equal(proof[1], hashHeader(d))
-		assert.equal(proof[3], tree[2][0])
-		assert.equal(proof[proof.length-1], tree[tree.length-2][1])
+	describe("#buildTree()", () => {
+		it("should create a merkle tree from 2 leafs", () => {
+			let tree = merkle.buildTree([a, b])
+			checkTrees(tree, SMALL_TREE)
+		})
+
+		it("should create a merkle tree from 8 leafs", () => {
+			let tree = merkle.buildTree([a, b, c, d, e, f, g, h])
+			checkTrees(tree, LARGE_TREE)
+		})
+	})
+
+	describe("#getProof()", () => {
+		it("should create a proof from a given leaf in a tree", () => {
+			let tree = merkle.buildTree([a, b, c, d, e, f, g, h])
+			let leaf = c
+			let proof = merkle.getProof(tree, leaf)
+			logger.Context(`Got :: ${proof[1]} Expected :: toEqual ${hashHeader(d)}`)
+			logger.Context(`Got :: ${proof[3]} Expected :: toEqual ${tree[2][0]}`)
+			logger.Context(`Got :: ${proof[proof.length-1]} Expected :: toEqual ${tree[tree.length-2][1]}`)
+			assert.equal(proof[1], hashHeader(d))
+			assert.equal(proof[3], tree[2][0])
+			assert.equal(proof[proof.length-1], tree[tree.length-2][1])
+		})
+	})
+
+	describe("#verifyProof()", () => {
+		it("should confirm proof is valid", () => {
+			let tree = merkle.buildTree([a, b, c, d, e, f, g, h])
+			let leaf = c
+			let root = merkle.getRoot(tree)
+			let proof = merkle.getProof(tree, leaf)
+
+			let valid = merkle.verifyProof(proof, leaf, root)
+			assert.isTrue(valid)
+		})
+	})
+
+	describe("#isValidLeaf()", () => {
+		it("should confirm leaf exists", () => {
+			let tree = merkle.buildTree([a,b,c,d])
+
+			let res = merkle.isValidLeaf(tree, a)
+			assert(res, "leaf was not found in tree")
+		})
+		it("should confirm leaf does not exist", () => {
+			let tree = merkle.buildTree([a,b,c,d])
+
+			let res = merkle.isValidLeaf(tree, e)
+			assert(!res, "leaf was found in tree")
+		})
+	})
+
+	describe("#getRoot()", () => {
+		it("should return root for single node tree", () => {
+			let tree = merkle.buildTree([a])
+
+			let res = merkle.getRoot(tree)
+			let expectedRoot = hashHeader(a)
+			assert.equal(res, expectedRoot)
+		})
 	})
 })
