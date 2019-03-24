@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test tests/tests.js",
+    "test": "mocha tests/tests.js",
     "docs": "jsdoc2md --template README.hbs --files index.js > README.md"
   },
   "author": "",

@@ -24,7 +24,7 @@ const hashAB = (a, b) => {
 const hashHeader = (obj) => {
 	if(obj === null) return hash(0)
 	return hash(["bytes32", "uint256", "uint256", "bytes32", "bytes32"],
-		[obj.prevHeader, utils.bigNumberify(obj.timestamp), utils.bigNumberify(obj.number),
+		[obj.previousHeader, utils.bigNumberify(obj.timestamp), utils.bigNumberify(obj.blockNumber),
 			obj.transactionsRoot, obj.receiptsRoot]).toString(16)
 }
 
@@ -196,9 +196,10 @@ const getRoot = (tree) => {
 
 /**
  * Checks if the leaf exists in the tree.
- * @param {string} leaf.prevHeader - previous block header
+ * @param {Object} leaf
+ * @param {string} leaf.previousHeader - previous block header
  * @param {number} leaf.timestamp - block timestamp
- * @param {number} leaf.number - current block number
+ * @param {number} leaf.blockNumber - current block number
  * @param {string} leaf.transactionsRoot - current transaction root
  * @param {string} leaf.receiptsRoot - current receipts root
  * @param tree Valid merkle tree
@@ -207,8 +208,8 @@ const getRoot = (tree) => {
 const isValidLeaf = (tree, leaf) => {
 	for(let i = 0; i < tree[0].length; i++) {
 		let treeLeaf = tree[0][i]
-		if(treeLeaf.prevHeader === leaf.prevHeader &&
-			treeLeaf.number === leaf.number &&
+		if(treeLeaf.previousHeader === leaf.previousHeader &&
+			treeLeaf.blockNumber === leaf.blockNumber &&
 			treeLeaf.timestamp === leaf.timestamp &&
 			treeLeaf.transactionsRoot === leaf.transactionsRoot &&
 			treeLeaf.receiptsRoot === leaf.receiptsRoot) {

@@ -30,21 +30,21 @@ logger.Context = function Context(str) {
 
 
 // Example leafs
-const a = {prevHeader: '0x5c5df0f94d5e6699553c83008f79f9de18476f0fb987f4dc4b84e82c6bd46796', timestamp: 1234, number: 1,
+const a = {previousHeader: '0x5c5df0f94d5e6699553c83008f79f9de18476f0fb987f4dc4b84e82c6bd46796', timestamp: 1234, blockNumber: 1,
 	transactionsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', receiptsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f'}
-const b = {prevHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 5678, number: 2,
+const b = {previousHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 5678, blockNumber: 2,
 	transactionsRoot: '0x3e3ade60c3e30ba7ea7fb6144776373e7ba4ad1e647184e776fa26f3afe3c280', receiptsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f'}
-const c = {prevHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 1234, number: 3,
+const c = {previousHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 1234, blockNumber: 3,
 	transactionsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', receiptsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f'}
-const d = {prevHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 1234, number: 4,
+const d = {previousHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 1234, blockNumber: 4,
 	transactionsRoot: '0x3e3ade60c3e30ba7ea7fb6144776373e7ba4ad1e647184e776fa26f3afe3c280', receiptsRoot: '0x5c5df0f94d5e6699553c83008f79f9de18476f0fb987f4dc4b84e82c6bd46796'}
-const e = {prevHeader: '0x5c8217dae1fb65281371b85fc2ad9bb8c361fcc8f6f7267969649f5328fe9ae2', timestamp: 1234, number: 5,
+const e = {previousHeader: '0x5c8217dae1fb65281371b85fc2ad9bb8c361fcc8f6f7267969649f5328fe9ae2', timestamp: 1234, blockNumber: 5,
 	transactionsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', receiptsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f'}
-const f = {prevHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 1234, number: 6,
+const f = {previousHeader: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', timestamp: 1234, blockNumber: 6,
 	transactionsRoot: '0x6fdc7790270a8e60349cd11e86247a28de70afdc54ae41b59cfc82ff9c74f1fb', receiptsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f'}
-const g = {prevHeader: '0x8decd7b22b6929b3be4a51e4b1907dd0fdf3aa6f046c54e179b89b68420b7c36', timestamp: 1234, number: 7,
+const g = {previousHeader: '0x8decd7b22b6929b3be4a51e4b1907dd0fdf3aa6f046c54e179b89b68420b7c36', timestamp: 1234, blockNumber: 7,
 	transactionsRoot: '0x5c8217dae1fb65281371b85fc2ad9bb8c361fcc8f6f7267969649f5328fe9ae2', receiptsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f'}
-const h = {prevHeader: '0x3c33834e258cc87b6e461c02a3f7e368eea7d571f9823a6435bea8a57c085db9', timestamp: 1234, number: 8,
+const h = {previousHeader: '0x3c33834e258cc87b6e461c02a3f7e368eea7d571f9823a6435bea8a57c085db9', timestamp: 1234, blockNumber: 8,
 	transactionsRoot: '0xa4d5b01561b15ada293a3f0697720e81f1ed3e2dfc981ce89d88de285f310b6f', receiptsRoot: '0x5c5df0f94d5e6699553c83008f79f9de18476f0fb987f4dc4b84e82c6bd46796'}
 
 // Exmaple trees
