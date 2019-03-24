@@ -45,7 +45,7 @@ npm install && npm run docs
 <dt><a href="#getRoot">getRoot(tree)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns root element of tree.</p>
 </dd>
-<dt><a href="#isValidLeaf">isValidLeaf(tree)</a> ⇒ <code>boolean</code></dt>
+<dt><a href="#isValidLeaf">isValidLeaf(leaf, tree)</a> ⇒ <code>boolean</code></dt>
 <dd><p>Checks if the leaf exists in the tree.</p>
 </dd>
 </dl>
@@ -171,16 +171,17 @@ Returns root element of tree.
 
 <a name="isValidLeaf"></a>
 
-## isValidLeaf(tree) ⇒ <code>boolean</code>
+## isValidLeaf(leaf, tree) ⇒ <code>boolean</code>
 Checks if the leaf exists in the tree.
 
 **Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| leaf.prevHeader | <code>string</code> | previous block header |
+| leaf | <code>Object</code> |  |
+| leaf.previousHeader | <code>string</code> | previous block header |
 | leaf.timestamp | <code>number</code> | block timestamp |
-| leaf.number | <code>number</code> | current block number |
+| leaf.blockNumber | <code>number</code> | current block number |
 | leaf.transactionsRoot | <code>string</code> | current transaction root |
 | leaf.receiptsRoot | <code>string</code> | current receipts root |
 | tree |  | Valid merkle tree |
